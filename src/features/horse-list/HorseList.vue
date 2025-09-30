@@ -20,7 +20,22 @@ onMounted(() => {
     </div>
 
     <div class="horse-list-content" data-testid="horse-list-content">
-      <HorseListItem v-for="horse in horses" :key="horse.id" :horse="horse" />
+      <table class="horse-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Condition</th>
+            <th>Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          <HorseListItem
+            v-for="horse in horses"
+            :key="horse.id"
+            :horse="horse"
+          />
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -43,5 +58,28 @@ onMounted(() => {
 
 .horse-list-content {
   padding: 8px;
+}
+
+.horse-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.horse-table th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.horse-table th:first-child {
+  border-top-left-radius: 4px;
+}
+
+.horse-table th:last-child {
+  border-top-right-radius: 4px;
 }
 </style>

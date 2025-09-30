@@ -13,64 +13,51 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="horse-item" data-testid="horse-item">
-    <div class="horse-number" data-testid="horse-number">{{ horse.id }} -</div>
-    <div>
-      <div class="horse-name" data-testid="horse-name">{{ horse.name }}</div>
-      <div class="horse-details" data-testid="horse-details">
-        {{ horse.condition }}
-
-        <div class="horse-color-text" data-testid="horse-color-text">
-          {{ horse.color }}
-        </div>
-        <div
-          class="horse-color-indicator"
-          data-testid="horse-color-indicator"
-          :style="{ backgroundColor: horse.color || '#ccc' }"
-        ></div>
-      </div>
-    </div>
-  </div>
+  <tr class="horse-item" data-testid="horse-item">
+    <td class="horse-name" data-testid="horse-name">
+      {{ horse.name }}
+    </td>
+    <td class="horse-condition" data-testid="horse-condition">
+      {{ horse.condition }}
+    </td>
+    <td data-testid="horse-color">
+      <div
+        class="horse-color-indicator"
+        data-testid="horse-color-indicator"
+        :style="{ backgroundColor: horse.color || '#ccc' }"
+      ></div>
+    </td>
+  </tr>
 </template>
 
 <style scoped>
 .horse-item {
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  gap: 8px;
-  border-bottom: 1px solid #ffff;
+  border-bottom: 1px solid #ddd;
 }
 
-.horse-number {
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  margin-right: 8px;
+.horse-item:hover {
+  background-color: #f9f9f9;
+}
+
+td {
+  padding: 8px;
 }
 
 .horse-name {
   font-weight: bold;
   font-size: 14px;
-  text-align: left;
+  color: #333;
 }
 
-.horse-details {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 14px;
-  color: gray;
+.horse-condition {
+  text-align: center;
+  font-weight: bold;
+  color: #333;
 }
 
 .horse-color-indicator {
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  border: 1px solid #333;
-}
-
-.horse-color-text {
-  font-size: 12px;
 }
 </style>
