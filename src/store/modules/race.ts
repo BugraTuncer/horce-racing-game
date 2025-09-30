@@ -1,5 +1,5 @@
 import type { Module, ActionContext } from "vuex";
-import type { Horse } from "../../features/horse-list/components/HorseListItem.vue";
+import type { Horse } from "./horses";
 
 const roundDistances = [1200, 1400, 1600, 1800, 2000, 2200];
 
@@ -15,6 +15,10 @@ export interface RaceSchedule {
 
 interface RaceState {
   raceSchedule: RaceSchedule;
+  raceInProgress: boolean;
+  currentRound: number;
+  raceProgress: number;
+  isPaused: boolean;
 }
 
 interface RootState {
@@ -30,15 +34,51 @@ const race: Module<RaceState, RootState> = {
     raceSchedule: {
       rounds: [],
     },
+    raceInProgress: false,
+    currentRound: 0,
+    raceProgress: 0,
+    isPaused: false,
   }),
 
   getters: {
     getRaceSchedule: (state: RaceState) => state.raceSchedule,
+    getRaceInProgress: (state: RaceState) => state.raceInProgress,
+    getCurrentRound: (state: RaceState) => state.currentRound,
+    getRaceProgress: (state: RaceState) => state.raceProgress,
+    getIsPaused: (state: RaceState) => state.isPaused,
+    getCurrentRoundData: (state: RaceState) => {
+      if (
+        !state.raceSchedule.rounds ||
+        state.raceSchedule.rounds.length === 0
+      ) {
+        return null;
+      }
+      return state.raceSchedule.rounds[state.currentRound];
+    },
   },
 
   mutations: {
     SET_RACE_SCHEDULE(state: RaceState, raceSchedule: RaceSchedule) {
       state.raceSchedule = raceSchedule;
+      state.currentRound = 0;
+      state.raceProgress = 0;
+    },
+    SET_RACE_IN_PROGRESS(state: RaceState, inProgress: boolean) {
+      state.raceInProgress = inProgress;
+    },
+    SET_CURRENT_ROUND(state: RaceState, round: number) {
+      state.currentRound = round;
+    },
+    SET_RACE_PROGRESS(state: RaceState, progress: number) {
+      state.raceProgress = progress;
+    },
+    SET_RACE_PAUSED(state: RaceState, isPaused: boolean) {
+      state.isPaused = isPaused;
+    },
+    RESET_RACE(state: RaceState) {
+      state.raceInProgress = false;
+      state.raceProgress = 0;
+      state.isPaused = false;
     },
   },
 
@@ -67,7 +107,7 @@ const race: Module<RaceState, RootState> = {
 
       for (let i = 0; i < 6; i++) {
         const shuffledHorses = randomizeArray([...horses]);
-        const selectedHorses = shuffledHorses.slice(0, 6);
+        const selectedHorses = shuffledHorses.slice(0, 10);
         const distance = roundDistances[i] || 1200;
 
         rounds.push({
@@ -82,6 +122,44 @@ const race: Module<RaceState, RootState> = {
       };
 
       commit("SET_RACE_SCHEDULE", raceSchedule);
+      commit("RESET_RACE");
+    },
+
+    startRace({ commit, state }: ActionContext<RaceState, RootState>) {
+      if (state.raceSchedule.rounds.length === 0) return;
+
+      commit("SET_RACE_IN_PROGRESS", true);
+      commit("SET_RACE_PROGRESS", 0);
+    },
+
+    updateRaceProgress(
+      { commit, state }: ActionContext<RaceState, RootState>,
+      progress: number
+    ) {
+      commit("SET_RACE_PROGRESS", progress);
+
+      if (progress >= 100) {
+        commit("SET_RACE_IN_PROGRESS", false);
+      }
+    },
+
+    nextRound({ commit, state }: ActionContext<RaceState, RootState>) {
+      if (state.currentRound < state.raceSchedule.rounds.length - 1) {
+        commit("SET_CURRENT_ROUND", state.currentRound + 1);
+        commit("SET_RACE_PROGRESS", 0);
+      }
+    },
+
+    resetRace({ commit }: ActionContext<RaceState, RootState>) {
+      commit("RESET_RACE");
+      commit("SET_CURRENT_ROUND", 0);
+    },
+
+    setPaused(
+      { commit }: ActionContext<RaceState, RootState>,
+      isPaused: boolean
+    ) {
+      commit("SET_RACE_PAUSED", isPaused);
     },
   },
 };

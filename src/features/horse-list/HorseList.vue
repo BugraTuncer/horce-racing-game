@@ -2,7 +2,7 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import HorseListItem from "./components/HorseListItem.vue";
-import type { Horse } from "./components/HorseListItem.vue";
+import type { Horse } from "../../store/modules/horses";
 
 const store = useStore();
 

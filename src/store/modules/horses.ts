@@ -1,5 +1,11 @@
 import type { Module, ActionContext } from "vuex";
-import type { Horse } from "../../features/horse-list/components/HorseListItem.vue";
+
+export type Horse = {
+  id: number;
+  name: string;
+  color: string;
+  condition: number;
+};
 
 interface HorsesState {
   horses: Horse[];

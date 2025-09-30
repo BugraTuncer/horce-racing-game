@@ -2,6 +2,7 @@
 import HorseList from "./features/horse-list/HorseList.vue";
 import RaceSchedule from "./features/race-schedule/RaceSchedule.vue";
 import RaceControls from "./features/race-controls/RaceControls.vue";
+import RaceTrack from "./features/race-track/RaceTrack.vue";
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import RaceControls from "./features/race-controls/RaceControls.vue";
     <RaceControls />
     <div class="main-container">
       <HorseList />
+      <RaceTrack />
       <RaceSchedule />
     </div>
   </div>

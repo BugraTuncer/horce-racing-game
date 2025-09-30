@@ -1,10 +1,5 @@
 <script setup lang="ts">
-export type Horse = {
-  id: number;
-  name: string;
-  color: string;
-  condition: number;
-};
+import type { Horse } from "../../../store/modules/horses";
 interface Props {
   horse: Horse;
 }
