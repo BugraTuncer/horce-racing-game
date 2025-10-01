@@ -2,6 +2,8 @@
 
 A Vue.js based horse racing simulation game where you can create horses, schedule races, and watch them compete.
 
+# Live Demo: https://horce-racing-game.vercel.app/
+
 ## Features
 
 - Create and manage horses with unique attributes
