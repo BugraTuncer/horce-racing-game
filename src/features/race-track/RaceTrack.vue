@@ -24,10 +24,11 @@ onMounted(() => {
 
     <div class="race-track" v-if="horses.length > 0">
       <HorseLane
-        v-for="horse in displayHorses"
+        v-for="(horse, index) in displayHorses"
         :key="horse.id"
         :horse="horse"
         :position="getHorsePosition(horse)"
+        :index="index"
       />
     </div>
 

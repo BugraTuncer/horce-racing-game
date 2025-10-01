@@ -1,33 +1,33 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useStore } from "vuex";
-import RaceRoundItem from "./components/RaceRoundItem.vue";
+import RaceResultItem from "./components/RaceResultItem.vue";
 import type { RaceSchedule } from "../../store/modules/race";
 
 const store = useStore();
 
-const raceSchedule = computed<RaceSchedule>(
-  () => store.getters["race/getRaceSchedule"]
+const raceResults = computed<RaceSchedule>(
+  () => store.getters["race/getRaceResults"]
 );
 </script>
 
 <template>
-  <div class="race-schedule" data-testid="race-schedule">
-    <div class="race-schedule-header" data-testid="race-schedule-header">
-      <h3>Race Schedule</h3>
+  <div class="race-results" data-testid="race-results">
+    <div class="race-results-header" data-testid="race-results-header">
+      <h3>Race Results</h3>
     </div>
 
-    <div class="race-schedule-content" data-testid="race-schedule-content">
+    <div class="race-results-content" data-testid="race-results-content">
       <div
-        v-if="raceSchedule.rounds.length === 0"
-        class="no-schedule"
-        data-testid="no-schedule"
+        v-if="!raceResults || raceResults.rounds.length === 0"
+        class="no-results"
+        data-testid="no-results"
       >
-        Click the Generate button to create a schedule.
+        No race results available yet.
       </div>
       <template v-else>
-        <RaceRoundItem
-          v-for="round in raceSchedule.rounds"
+        <RaceResultItem
+          v-for="round in raceResults.rounds"
           :key="round.id"
           :round="round"
         />
@@ -37,35 +37,35 @@ const raceSchedule = computed<RaceSchedule>(
 </template>
 
 <style scoped>
-.race-schedule {
+.race-results {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
 
-.race-schedule-header {
-  background-color: #4f85ea;
+.race-results-header {
+  background-color: #2ecc71;
   padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.race-schedule-header h3 {
+.race-results-header h3 {
   font-size: 14px;
   font-weight: bold;
   color: white;
   margin: 0;
 }
 
-.race-schedule-content {
+.race-results-content {
   padding: 8px;
   flex: 1;
   overflow-y: auto;
 }
 
-.no-schedule {
+.no-results {
   padding: 20px;
   text-align: center;
   color: #666;

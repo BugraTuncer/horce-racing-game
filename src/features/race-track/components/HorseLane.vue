@@ -2,14 +2,16 @@
 import type { Horse } from "../../../store/modules/horses";
 import HorseComponent from "./Horse.vue";
 
-defineProps<{
+const props = defineProps<{
   horse: Horse;
   position: string;
+  index: number;
 }>();
 </script>
 
 <template>
   <div class="race-lane">
+    <div class="lane-number">{{ props.index + 1 }}</div>
     <div class="lane-track">
       <HorseComponent :horse="horse" :position="position" />
     </div>
@@ -27,29 +29,25 @@ defineProps<{
   overflow: hidden;
 }
 
+.lane-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .lane-track {
   flex: 1;
   height: 100%;
   position: relative;
   background-color: #f0f0f0;
-  border-left: 1px dashed #ccc;
   overflow: hidden;
-}
-
-.lane-track::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 5px;
-  height: 100%;
-  background-color: #000;
-  background: repeating-linear-gradient(
-    45deg,
-    #000,
-    #000 10px,
-    #fff 10px,
-    #fff 20px
-  );
 }
 </style>

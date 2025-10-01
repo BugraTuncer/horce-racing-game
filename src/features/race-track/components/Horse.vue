@@ -12,7 +12,6 @@ defineProps<{
     class="horse-icon"
     :style="{
       left: position,
-      backgroundColor: horse.color,
     }"
   >
     <span class="horse-emoji">🐎</span>
@@ -46,8 +45,7 @@ defineProps<{
 .horse-name-label {
   font-size: 12px;
   font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  color: black;
   white-space: nowrap;
   margin-left: 4px;
 }

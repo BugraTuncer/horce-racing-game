@@ -44,6 +44,8 @@ onMounted(() => {
 .horse-list {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 .horse-list-header {
@@ -58,6 +60,9 @@ onMounted(() => {
 
 .horse-list-content {
   padding: 8px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .horse-table {

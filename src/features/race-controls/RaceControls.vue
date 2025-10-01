@@ -32,7 +32,7 @@ const pauseResumeRace = () => {
 <template>
   <div class="race-controls" data-testid="race-controls">
     <div class="race-controls-header" data-testid="race-controls-header">
-      <h3>Race Controls</h3>
+      <h3>Horse Racing</h3>
       <div class="race-buttons">
         <button
           @click="generateRaceSchedule"

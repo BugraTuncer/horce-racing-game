@@ -100,6 +100,8 @@ export function useRaceTrack() {
     raceFinished.value = true;
     raceStarted.value = false;
 
+    store.dispatch("race/saveRaceResult", currentRound.value);
+
     setTimeout(() => {
       if (currentRound.value < raceSchedule.value.rounds.length - 1) {
         currentRound.value += 1;

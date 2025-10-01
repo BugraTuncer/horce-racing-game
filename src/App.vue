@@ -3,6 +3,7 @@ import HorseList from "./features/horse-list/HorseList.vue";
 import RaceSchedule from "./features/race-schedule/RaceSchedule.vue";
 import RaceControls from "./features/race-controls/RaceControls.vue";
 import RaceTrack from "./features/race-track/RaceTrack.vue";
+import RaceResults from "./features/race-results/RaceResults.vue";
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import RaceTrack from "./features/race-track/RaceTrack.vue";
       <HorseList />
       <RaceTrack />
       <RaceSchedule />
+      <RaceResults />
     </div>
   </div>
 </template>
@@ -23,11 +25,12 @@ import RaceTrack from "./features/race-track/RaceTrack.vue";
   flex-direction: column;
   gap: 8px;
   padding: 8px;
+  overflow: hidden;
 }
 .main-container {
-  flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1.75fr 1.25fr;
-  gap: 2px;
+  grid-template-columns: 1.25fr 2.25fr 1.25fr 1.25fr;
+  gap: 8px;
+  overflow: hidden;
 }
 </style>
