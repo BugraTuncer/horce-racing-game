@@ -73,21 +73,20 @@ export function useRaceTrack() {
       }
 
       updateHorsePositions();
-    }, 100);
+    }, 80);
   };
 
   const updateHorsePositions = () => {
     if (!horses.value) return;
 
     horses.value.forEach((horse: Horse) => {
-      const baseSpeed = 0.5 + horse.condition / 200;
-      const randomBoost = Math.random() * 0.3;
+      const baseSpeed = (horse.condition / 100) * 3;
+      const minSpeed = 1.1;
+      const speedFactor = Math.max(baseSpeed, minSpeed);
+
       horsePositions.value.set(
         horse.id,
-        Math.min(
-          100,
-          (horsePositions.value.get(horse.id) ?? 0) + baseSpeed + randomBoost
-        )
+        Math.min(100, (horsePositions.value.get(horse.id) ?? 0) + speedFactor)
       );
     });
   };
